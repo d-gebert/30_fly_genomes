@@ -1,16 +1,19 @@
 import argparse
-import pandas as pd
-import numpy as np
+import pandas as pd # type: ignore
+import numpy as np # type: ignore
 from collections import defaultdict
-from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
-from sklearn.impute import SimpleImputer
+from sklearn.decomposition import PCA # type: ignore
+from sklearn.preprocessing import StandardScaler # type: ignore
+from sklearn.impute import SimpleImputer # type: ignore
 
 # Define the size of bins and minimum contig length
 DEFAULT_BIN_SIZE = 100000
 DEFAULT_MIN_CONTIG_LENGTH = 100000
 
 def main():
+    """
+    Process a BED file and create a read pair count matrix.
+    """
     parser = argparse.ArgumentParser(description="Process BED file to create a read pair count matrix.")
     parser.add_argument('file_path', type=str, help='Path to the BED file')
     parser.add_argument('fai_path', type=str, help='Path to the FAI file')
@@ -39,6 +42,7 @@ def main():
     balanced_matrix = ice_normalization(matrix)
     print(f"Balanced matrix shape: {balanced_matrix.shape}")
 
+    # Apply transformation if specified
     if args.transformation == 'log':
         print("Applying log transformation...")
         transformed_matrix = np.log10(balanced_matrix + 1)
@@ -48,9 +52,11 @@ def main():
     else:
         transformed_matrix = balanced_matrix
 
-    transformed_matrix = np.round(transformed_matrix, 1)  # Round to one decimal place
+    # Round the transformed matrix to one decimal place
+    transformed_matrix = np.round(transformed_matrix, 1)
     print("Transformation applied.")
 
+    # Perform PCA at the specified stage
     if args.pca_stage == 'before':
         print("Performing PCA before transformation...")
         pc_values = perform_pca(balanced_matrix)
@@ -60,17 +66,28 @@ def main():
 
     print("PCA completed.")
 
+    # Save the matrix and PCA values to CSV files
     print("Saving matrix and PCA values...")
     save_matrix(transformed_matrix, bin_names)
     save_pca_values(pc_values, bin_names)
     print("Files saved.")
 
-def get_bin(position, bin_size):
-    """Returns the bin index for a given position."""
+def get_bin(position: int, bin_size: int) -> int:
+    """
+    Returns the bin index for a given position.
+    :param position: The position in the genome
+    :param bin_size: The size of each bin
+    :return: The bin index
+    """
     return position // bin_size
 
-def process_fai_file(fai_path, min_contig_length):
-    """Processes the FAI file to get contigs/chromosomes lengths and filter based on minimum length."""
+def process_fai_file(fai_path: str, min_contig_length: int) -> dict:
+    """
+    Processes the FAI file to get contigs/chromosome lengths.
+    :param fai_path: Path to the FAI file
+    :param min_contig_length: Minimum contig length to be considered
+    :return: Dictionary with contig names as keys and their lengths as values
+    """
     contig_lengths = {}
     with open(fai_path, 'r') as file:
         for line in file:
@@ -81,9 +98,14 @@ def process_fai_file(fai_path, min_contig_length):
                 contig_lengths[contig_name] = contig_length
     return contig_lengths
 
-def process_bed_file(file_path, contig_lengths, bin_size):
-    """Processes the BED file to create a single matrix of read pair counts in bins across the whole genome."""
-    # Dictionary to store counts
+def process_bed_file(file_path: str, contig_lengths: dict, bin_size: int) -> tuple:
+    """
+    Processes the BED file to create a read pair count matrix.
+    :param file_path: Path to the BED file
+    :param contig_lengths: Dictionary with contig names as keys and their lengths as values
+    :param bin_size: The size of each bin
+    :return: A tuple containing the matrix of read pair counts and a list of bin names
+    """
     counts = defaultdict(list)
     chromosome_positions = defaultdict(list)
     chromosome_bins = {}
@@ -140,12 +162,18 @@ def process_bed_file(file_path, contig_lengths, bin_size):
 
     return matrix, bin_names
 
-def ice_normalization(matrix, max_iter=100, epsilon=1e-5):
-    """Performs ICE normalization on the Hi-C contact matrix."""
+def ice_normalization(matrix: np.ndarray, max_iter: int = 100, epsilon: float = 1e-5) -> np.ndarray:
+    """
+    Performs ICE normalization on the Hi-C contact matrix.
+    :param matrix: The contact matrix to be normalized
+    :param max_iter: Maximum number of iterations
+    :param epsilon: Convergence threshold
+    :return: The normalized (balanced) matrix
+    """
     bias = np.ones(matrix.shape[0])
     for iteration in range(max_iter):
-        bias_new = np.divide(1, np.nanmean(matrix * bias, axis=0), where=np.nanmean(matrix * bias, axis=0)!=0)
-        bias_new /= np.nanmean(bias_new, where=~np.isnan(bias_new))  # normalize bias to have mean 1
+        bias_new = np.divide(1, np.nanmean(matrix * bias, axis=0), where=np.nanmean(matrix * bias, axis=0) != 0)
+        bias_new /= np.nanmean(bias_new, where=~np.isnan(bias_new))  # Normalize bias to have mean 1
 
         if np.nanmax(np.abs(bias - bias_new), initial=0, where=~np.isnan(np.abs(bias - bias_new))) < epsilon:
             break
@@ -154,9 +182,13 @@ def ice_normalization(matrix, max_iter=100, epsilon=1e-5):
     matrix_balanced = matrix * bias[:, np.newaxis] * bias[np.newaxis, :]
     return matrix_balanced
 
-def perform_pca(matrix, n_components=3):
-    """Performs PCA on the Hi-C contact matrix."""
-    # Impute missing values (NaNs) with the mean of each column
+def perform_pca(matrix: np.ndarray, n_components: int = 3) -> np.ndarray:
+    """
+    Performs PCA on the Hi-C contact matrix.
+    :param matrix: The matrix to perform PCA on
+    :param n_components: Number of principal components to return
+    :return: The first principal component values
+    """
     imputer = SimpleImputer(strategy='mean')
     matrix_imputed = imputer.fit_transform(matrix)
     
@@ -169,20 +201,27 @@ def perform_pca(matrix, n_components=3):
     print(f"Any NaNs: {corr_matrix.isna().any().any()}")
     print(f"Number of NaNs: {corr_matrix.isna().sum().sum()}")
 
-    # Handle any NaNs in the correlation matrix
     corr_matrix = corr_matrix.fillna(0)
 
     pca = PCA(n_components=n_components)
     matrix_pca = pca.fit_transform(corr_matrix)
     return matrix_pca[:, 0]  # Return the first principal component values
 
-def save_matrix(matrix, bin_names):
-    """Saves the matrix to a CSV file with bin names."""
+def save_matrix(matrix: np.ndarray, bin_names: list) -> None:
+    """
+    Saves the matrix to a CSV file with bin names.
+    :param matrix: The matrix to be saved
+    :param bin_names: List of bin names corresponding to the rows and columns of the matrix
+    """
     df = pd.DataFrame(matrix, index=bin_names, columns=bin_names)
     df.to_csv("genome_matrix_balanced_log10.csv", index=True, header=True)
 
-def save_pca_values(pc_values, bin_names):
-    """Saves the PCA values to a CSV file with bin names."""
+def save_pca_values(pc_values: np.ndarray, bin_names: list) -> None:
+    """
+    Saves the PCA values to a CSV file with bin names.
+    :param pc_values: The PCA values to be saved
+    :param bin_names: List of bin names corresponding to the PCA values
+    """
     df = pd.DataFrame(pc_values, index=bin_names, columns=["PC1"])
     df.to_csv("pca_values.csv", index=True, header=True)
 
