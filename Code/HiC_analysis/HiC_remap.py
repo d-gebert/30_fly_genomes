@@ -9,6 +9,7 @@ import argparse
 cores = 10  # Cores to be used
 map_q = 1  # Initial minimal map quality
 mapper = 'bwa'
+juicer_tools_jar = 'juicer_tools.1.9.9.jar'
 
 # Dependencies for this program
 dependencies = ['bwa', 'samtools', 'bedtools', 'trim_galore', 'sambamba',
@@ -57,7 +58,7 @@ def main():
     merge_bed_file = bam_to_bed(merge_dr_bam_file)
     
     bed_pre_file = bed_to_pre(merge_bed_file)
-    hic_file = juicer_tools_hic(bed_pre_file, gnm_len_file)
+    hic_file = juicer_tools_hic(bed_pre_file, gnm_len_file, juicer_tools_jar)
     
     print(f"HiC contact map file created: '{hic_file}'\n")
 
@@ -185,7 +186,7 @@ def bed_to_pre(bed_file: str) -> str:
         os.system(f"BED_to_PRE_format.py {bed_file}")
     return bed_pre_file
 
-def juicer_tools_hic(bed_pre_file: str, gnm_len_file: str) -> str:
+def juicer_tools_hic(bed_pre_file: str, gnm_len_file: str, juicer_jar: str) -> str:
     """
     Produce hic file from pre format bed file.
     :param bed_pre_file: Path to the pre format bed file
@@ -196,7 +197,7 @@ def juicer_tools_hic(bed_pre_file: str, gnm_len_file: str) -> str:
     if not os.path.exists(hic_file):
         with open('juicer_tools.sh', "w") as bash_file:
             print(
-                f"java -Xmx36G -jar juicer_tools.1.9.9.jar pre {bed_pre_file} {hic_file} {gnm_len_file}", file=bash_file)
+                f"java -Xmx36G -jar {juicer_jar} pre {bed_pre_file} {hic_file} {gnm_len_file}", file=bash_file)
         os.system("bash juicer_tools.sh")
         os.system("rm juicer_tools.sh")
     return hic_file
