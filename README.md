@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This repository contains the scripts and code utilized in the study titled "Analysis of 30 Chromosome-Level *Drosophila* Genome Assemblies Reveals Dynamic Evolution of Centromeric Satellite Repeats." The project encompasses:
+This repository contains the scripts and code utilized in the study titled "Analysis of 30 Chromosome-Level *Drosophila* Genome Assemblies Reveals Dynamic Evolution of Centromeric Satellite Repeats" by Gebert D, Hay AD, Hoang J, Gibbon AE, Henderson IR, and Teixeira FK (doi: https://doi.org/10.1101/2024.06.17.599346). The project encompasses:
 
 - **Hi-C Genome Scaffolding**: Utilizing Hi-C chromatin conformation data to scaffold genome assemblies to chromosome-level.
 - **Hi-C-Based Muller Element Organization and Compartment Analysis**: Analyzing chromatin compartments and interactions between Muller elements.
