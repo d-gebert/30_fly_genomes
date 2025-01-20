@@ -43,7 +43,7 @@ Due to the large size of the genomic datasets, input data is hosted externally. 
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE.md) file for details.
 
 ## Contact
 
