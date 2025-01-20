@@ -21,7 +21,7 @@ This repository accompanies the study titled "Analysis of 30 Chromosome-Level *D
 ## Code Availability
 
 - **Custom Scripts and Code**:
-  - **Description**: All scripts and code used in this study, including those for scaffolding, annotation, and evolutionary analyses, are available in this GitHub repository.
+  - **Description**: All custom scripts and code used in this study, including those for scaffolding, annotation, and evolutionary analyses, are available in this GitHub repository.
   - **License**: The code is released under the MIT License.
   - **Access**: Visit the repository at [https://github.com/d-gebert/30_fly_genomes](https://github.com/d-gebert/30_fly_genomes).
 
