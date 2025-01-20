@@ -10,8 +10,8 @@ This repository contains the scripts and code utilized in the study titled "Anal
 - **Hi-C-Based Muller Element Organization and Compartment Analysis**: Analyzing chromatin compartments and interactions between Muller elements.
 - **Gene Annotation**: Predicting gene models using de novo transcriptome assemblies and protein homology.
 - **Genome Rearrangement Analysis**: Detecting syntenic blocks and structural variations to study genome rearrangements.
-- **Transposable Element Annotation**: Analysing HiTE-annotated transposable elements (TEs) across the genomes.
-- **Tandem Repeat Annotation and Analysis**: Characterizing TRASH-annotated tandem repeats, including centromeric satellite repeats.
+- **Transposable Element Annotation**: Analysing transposable elements (TEs) across the genomes.
+- **Tandem Repeat Annotation and Analysis**: Characterizing tandem repeats, including centromeric satellite repeats.
 
 ## Project Structure
 
@@ -22,7 +22,7 @@ The repository is organized as follows:
 - `Code/Gene_annotation/`: Scripts for gene annotation based on MAKER.
 - `Code/Genome_rearrangement/`: Scripts for synteny and rearrangement analysis based on GENSPACE.
 - `Code/TE_annotation/`: Scripts for transposable element analysis and visualization.
-- `Code/TR_analysis/`: Scripts for tandem repeat analysis and visualization.
+- `Code/TR_analysis/`: Scripts for TRASH-based tandem repeat analysis and visualization.
 - `Docs/`: Documentation and supplementary materials.
 
 ## Installation
