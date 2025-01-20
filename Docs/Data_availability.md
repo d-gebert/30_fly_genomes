@@ -28,7 +28,7 @@ This repository accompanies the study titled "Analysis of 30 Chromosome-Level *D
 ## Additional Information
 
 - **Supplementary Data**:
-  - **Description**: Supplementary tables, figures, and other supporting materials are included in the manuscript's supplementary files.
+  - **Description**: Supplementary tables, figures, and other supporting materials are included in the accompanying manuscript's supplementary files.
   - **Access**: These materials are available alongside the published article.
 
-For any further inquiries or assistance in accessing the data, please contact the corresponding author. 
+For any further inquiries or assistance in accessing the data, please contact the corresponding authors (Daniel Gebert & Felipe Karam Teixeira). 
