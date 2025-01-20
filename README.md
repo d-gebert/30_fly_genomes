@@ -20,7 +20,7 @@ The repository is organized as follows:
 - `Code/HiC_scaffolding/`: Scripts for Hi-C genome scaffolding centred around YAHS.
 - `Code/HiC_analysis/`: Scripts for Hi-C data processing and chromatin compartment analysis.
 - `Code/Gene_annotation/`: Scripts for gene annotation based on MAKER.
-- `Code/Genome_rearrangement/`: Scripts for synteny and genome rearrangement analysis based on GENSPACE.
+- `Code/Genome_rearrangement/`: Scripts for synteny and rearrangement analysis based on GENSPACE.
 - `Code/TE_annotation/`: Scripts for transposable element analysis and visualization.
 - `Code/TR_analysis/`: Scripts for tandem repeat analysis and visualization.
 - `Docs/`: Documentation and supplementary materials.
