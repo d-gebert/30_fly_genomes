@@ -16,7 +16,7 @@ This repository accompanies the study titled "Analysis of 30 Chromosome-Level *D
 
 - **Hi-C Data for Additional *Drosophila* Species**:
   - **Description**: Publicly available Hi-C datasets for eight *Drosophila* species were incorporated into our analyses.
-  - **Access**: Details, including accession numbers and references, are provided in Additional File 2: Table S1 of the manuscript.
+  - **Access**: Details, including accession numbers and references, are provided in Table S1 of the manuscript.
 
 ## Code Availability
 
