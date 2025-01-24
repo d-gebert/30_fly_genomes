@@ -12,11 +12,15 @@ This repository accompanies the study titled "Analysis of 30 Chromosome-Level *D
   - **Description**: The scaffolded genome assemblies for the 30 *Drosophila* species are available through NCBI Datasets under the same BioProject number.
   - **Access**: Refer to BioProject [PRJNA1119277](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1119277) for detailed information.
 
+- **Genome Annotations**:
+  - **Description**: The gene, transposable element (TE) and tandem repeat (TR) annotations of the scaffolded genome assemblies for the 30 *Drosophila* species are available in this GitHub repository.
+  - **Access**: Visit the repository at [https://github.com/d-gebert/30_fly_genomes](https://github.com/d-gebert/30_fly_genomes).
+
 ## Publicly Available Data
 
 - **Hi-C Data for Additional *Drosophila* Species**:
   - **Description**: Publicly available Hi-C datasets for eight *Drosophila* species were incorporated into our analyses.
-  - **Access**: Details, including accession numbers and references, are provided in Table S1 of the manuscript.
+  - **Access**: Details, including accession numbers and references, are provided in Table S1 of the accompanying manuscript.
 
 ## Code Availability
 
