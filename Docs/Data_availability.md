@@ -21,6 +21,9 @@ This repository accompanies the study titled "Analysis of 30 Chromosome-Level *D
 - **Hi-C Data for Additional *Drosophila* Species**:
   - **Description**: Publicly available Hi-C datasets for eight *Drosophila* species were incorporated into our analyses.
   - **Access**: Details, including accession numbers and references, are provided in Table S1 of the accompanying manuscript.
+- **Nanopore (ONT) sequencing data and contig level-assemblies for *Drosophila* Species**:
+  - **Description**: Publicly available ONT-based contig-level assemblies for all 30 species formed the basis for our HiC scaffolding and are found under BioProject number [PRJNA675888](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA675888).
+  - **Access**: Refer to BioProject [PRJNA675888](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA675888) for detailed information.
 
 ## Code Availability
 
